@@ -6,4 +6,7 @@ being sent. I will be using ASCII table for this project from char 32 to 126.
 
 In this technique, plain text is paired with a random secret key (OTP = one-time pad).
 
+Test it using the executable file launcher!
+
+Enjoy!
 

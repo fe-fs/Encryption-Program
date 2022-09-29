@@ -21,7 +21,6 @@ public class EncryptionProgram {
 	    shuffledList = new ArrayList();
 		character = ' ';
 
-		newKey();
 		askQuestion();
 	}
 	
@@ -29,9 +28,10 @@ public class EncryptionProgram {
 	//gen new key | use current key | encrypt msg | decrypt msg | quit
 	private void askQuestion() {
 		while(true) {
-			System.out.println("********************************************");
+			System.out.println("\n********************************************\n");
+			System.out.println("Welcome to the Encryption Program!\n");
 			System.out.println("What you want to do?");
-			System.out.println("(N)ewKey,(G)etKey,(E)ncrypt,(D)ecrypt,(Q)uit");
+			System.out.println("(N)ewKey **Old KEYS will be erased**\n(G)etKey\n(E)ncrypt\n(D)ecrypt\n(Q)uit");
 			char response = Character.toUpperCase(scanner.nextLine().charAt(0));
 			
 			switch(response) {
@@ -70,13 +70,13 @@ public class EncryptionProgram {
 		
 		shuffledList = new ArrayList(list); 
 		Collections.shuffle(shuffledList);
-		System.out.println("A new key has being generated!");
+		System.out.println("A encrypted sequence key has being generated! \n**Old one will not work anymore!**");
 		
 	}
 	//get key -> transforms into ASCII them shuffle those values for this key, another key will have a different shuffle
 	//the key will set the structure of this shuffle value so it can be decripted later
 	private void getKey() {
-		System.out.println("Key: ");
+		System.out.println("** This shows the encryption generated ** \n Key: \n" );
 		
 		//will print 1st row with arraylist list that has all the ASCII characters
 		//with their associate integer values
@@ -86,13 +86,14 @@ public class EncryptionProgram {
 		//shuffedlist took all of these characters from list, made a copy of them and shuffled them 
 		System.out.println();
 		for(Character x : shuffledList ) {
-			System.out.println(x);
+			System.out.print(x);
 		}
 		System.out.println();
 	}
 	
 	//encrypt plain text
 	private void encrypt() {
+		newKey();
 		System.out.println("Enter a message to be encrypted:");
 		String message = scanner.nextLine();
 		
@@ -118,11 +119,34 @@ public class EncryptionProgram {
 	
 	//decrypt the msg back to plain text
 	private void decrypt() {
+		System.out.println("Enter a message to be decrypted: (COPY from encrypt)");
+		String message = scanner.nextLine();
+		
+		letters = message.toCharArray(); //this method will break the msg into a array of chars
+		
+		//Basically the reverse from the encrypt method
+		//if letters are equal to the shuffledList, assign to the array letters to the list at index j
+		for(int i=0;i<letters.length; i++) {
+			
+			for(int j=0;j<shuffledList.size();j++) {
+				if(letters[i]==shuffledList.get(j)) {
+					letters[i] = list.get(j);
+					break;
+				}
+			}
+		}
+		System.out.println("Decripted: ");
+		for(char x : letters) {
+			System.out.print(x);
+		}
+		System.out.println();
+		
 		
 	}
 	
 	private void quit() {
-		
+		System.out.println("Closing the program.\nGOOD BYE!");
+		System.exit(0);
 	}
 	
 }
